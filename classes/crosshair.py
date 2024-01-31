@@ -19,7 +19,6 @@ class CrossHair(GroupedDrawings):
     rect {pg.Rect} -- PyGame rectangle
     offset {tuple} -- Two integers defining the sprite offset related
                       to the mouse cursor
-    shooting {bool} -- Defines if the user is shooting or not
     """
 
     def __init__(self, center:tuple, size:tuple=(6,20), color:str='black'):
@@ -42,9 +41,6 @@ class CrossHair(GroupedDrawings):
         offset_y = -size[1]/2
         self.offset = (offset_x, offset_y)
 
-        self.shooting = False
-        #self.rotation = 0
-
     def update(self):
         """Moves with the mouse"""
 
@@ -52,6 +48,19 @@ class CrossHair(GroupedDrawings):
         self.rect.topleft = pos
         self.rect.move_ip(self.offset)
 
-    def shoot(self, target):
-        """Close the cross hair"""
-        return None
+    def shoot(self, targets:list) -> int:
+        """Verify if it was hit and return corresponding score"""
+
+        hitbox = self.rect.inflate(-50, -50)
+
+        target_hit = None
+        for target in targets:
+            hit = hitbox.colliderect(target.rect)
+            if hit: 
+                target_hit = target
+                break
+
+        if target_hit:
+            return target_hit.points
+        else:
+            return 0
