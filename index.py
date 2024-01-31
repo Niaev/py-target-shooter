@@ -11,6 +11,7 @@ import pygame as pg
 
 # Project Imports
 from classes.crosshair import CrossHair
+from classes.hud import Hud
 
 # Setup game
 pg.init()
@@ -31,6 +32,9 @@ pg.mouse.set_cursor(
 
 # Game Entities
 ch = CrossHair((0,0))
+hud = Hud()
+
+hud_already_loaded = 0
 
 while run:
     for event in pg.event.get():
@@ -38,11 +42,15 @@ while run:
             run = False
 
     screen.fill('grey')
+    if not hud_already_loaded:
+        hud.draw(screen)
 
     # Load crosshair and make it follow the mouse
     ss = pg.sprite.RenderPlain((ch))
     ss.update()
     ss.draw(screen)
+
+    hud.update_time(screen)
 
     pg.display.flip()
 
