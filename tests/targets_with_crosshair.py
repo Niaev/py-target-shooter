@@ -12,7 +12,7 @@ pg.init()
 ## Setting game screen to be 600x600 pixels
 size = width, height = 600, 600
 screen = pg.display.set_mode(size)
-pg.display.set_caption('Target Shooter: The Game - Cross Hair Drawing')
+pg.display.set_caption('Target Shooter: The Game - Cross Hair With Targets')
 clock = pg.time.Clock()
 run = True
 
