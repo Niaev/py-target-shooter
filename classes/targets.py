@@ -1,3 +1,6 @@
+# General imports
+from datetime import datetime
+
 # PyGame imports
 import pygame as pg
 
@@ -13,13 +16,19 @@ class Target(GroupedDrawings):
     layers {int} -- Number of stripe layers of the target drawing
     size {tuple} -- Defines the size of the target 
     color {list} -- Contains two strings with the color codes
+    seconds {int} -- Number of seconds target needs to be up
 
     Instance Variables:
+    start {datetime} -- Date and time of the startup of the object
     image {pg.Surface} -- PyGame Surface
     rect {pg.Rect} -- PyGame rectangle
+    seconds {int} -- Number of seconds target needs to be up
     """
 
-    def __init__(self, center:tuple, layers: int, size:tuple, colors:list):
+    def __init__(self, center:tuple, layers: int, size:tuple, colors:list, seconds:int):
+        self.start = datetime.now()
+        self.seconds = seconds
+
         x = center[0]
         y = center[1]
 
@@ -59,6 +68,19 @@ class Target(GroupedDrawings):
 
         # Transform everything on a single object
         super().__init__(sprites)
+
+    def time_over(self) -> bool:
+        """Check if target time is over"""
+
+        # Current time
+        now = datetime.now()
+        # Difference between start and current time
+        diff = now - self.start
+
+        # Return if the time is over
+        if self.seconds <= diff.seconds:
+            return True
+        return False
     
     def collide(self, obj: 'pg.Surface') -> bool:
         """Verify if given object collides with target"""
@@ -87,7 +109,8 @@ class BigTarget(Target):
             self.center, 
             5, 
             self.size,
-            ['#7B0828', 'white']
+            ['#7B0828', 'white'],
+            10
         )
 
         self.points = 1
