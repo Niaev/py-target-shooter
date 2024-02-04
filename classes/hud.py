@@ -37,7 +37,7 @@ class Hud():
         self.y = pos[1]
 
         # Set font family and size
-        self.font = pg.font.SysFont('Console', 48)
+        self.font = pg.font.Font('data/fonts/console/pixeldroidConsoleRegular.ttf', 48)
         # Set initial time count
         self.time = self.font.render('00:00', True, (0,0,0))
         # Set initial score count
