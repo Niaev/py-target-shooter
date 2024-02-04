@@ -3,6 +3,7 @@ import pygame as pg
 
 # Project Imports
 from classes.base_drawings import Drawing, GroupedDrawings
+from classes.targets import Target
 
 class CrossHair(GroupedDrawings):
     """CrossHair that moves with the user mouse
@@ -48,8 +49,8 @@ class CrossHair(GroupedDrawings):
         self.rect.topleft = pos
         self.rect.move_ip(self.offset)
 
-    def shoot(self, targets:list) -> int:
-        """Verify if it was hit and return corresponding score"""
+    def shoot(self, targets:list) -> Target | None:
+        """Verify if it was hit and return corresponding target"""
 
         hitbox = self.rect.inflate(-50, -50)
 
@@ -61,6 +62,6 @@ class CrossHair(GroupedDrawings):
                 break
 
         if target_hit:
-            return target_hit.points
+            return target_hit
         else:
-            return 0
+            return None
