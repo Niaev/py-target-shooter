@@ -1,3 +1,6 @@
+# PyGame imports
+import pygame as pg
+
 # Project Imports
 from classes.base_drawings import GroupedDrawings, Drawing
 
@@ -56,6 +59,12 @@ class Target(GroupedDrawings):
 
         # Transform everything on a single object
         super().__init__(sprites)
+    
+    def collide(self, obj: 'pg.Surface') -> bool:
+        """Verify if given object collides with target"""
+
+        co = self.rect.colliderect(obj.rect)
+        return bool(co)
 
 class BigTarget(Target):
     """Bigger, default target!
