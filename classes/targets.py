@@ -136,7 +136,8 @@ class MediumTarget(Target):
             self.center, 
             5, 
             self.size,
-            ['#0A2342', 'white']
+            ['#0A2342', 'white'],
+            7
         )
 
         self.points = 5
@@ -162,7 +163,8 @@ class SmallTarget(Target):
             self.center, 
             3, 
             self.size,
-            ['#FFF275', 'white']
+            ['#FFF275', 'white'],
+            5
         )
 
         self.points = 20
@@ -188,7 +190,8 @@ class SuperSmallTarget(Target):
             self.center, 
             3, 
             self.size,
-            ['#FFDAC6', 'white']
+            ['#FFDAC6', 'white'],
+            3
         )
 
         self.points = 50
