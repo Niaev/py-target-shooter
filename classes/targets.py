@@ -109,7 +109,7 @@ class BigTarget(Target):
             self.center, 
             5, 
             self.size,
-            ['#7B0828', 'white'],
+            ['#AD0B39', 'white'],
             10
         )
 
@@ -136,7 +136,7 @@ class MediumTarget(Target):
             self.center, 
             5, 
             self.size,
-            ['#0A2342', 'white'],
+            ['#10396A', 'white'],
             7
         )
 
@@ -163,7 +163,7 @@ class SmallTarget(Target):
             self.center, 
             3, 
             self.size,
-            ['#FFF275', 'white'],
+            ['#F7B226', 'white'],
             5
         )
 
@@ -190,7 +190,7 @@ class SuperSmallTarget(Target):
             self.center, 
             3, 
             self.size,
-            ['#FFDAC6', 'white'],
+            ['#CE2791', 'white'],
             3
         )
 
