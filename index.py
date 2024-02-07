@@ -16,6 +16,7 @@ import pygame as pg
 from classes.crosshair import CrossHair
 from classes.hud import Hud
 from classes.targets import BigTarget, MediumTarget, SmallTarget, SuperSmallTarget
+from classes.popups import CHPopUp, TPopUp
 
 # Setup game
 pg.init()
@@ -38,8 +39,14 @@ pg.mouse.set_cursor(
 ch = CrossHair((0,0))
 hud = Hud()
 
+# Initialization stuff
 hud_already_loaded = 0
+
+# Objects that variate to show up on the screen
 targets_on_screen = []
+popups = []
+
+# Some configuration stuff idk
 screen_limits = [(30, width-30), (78, height-30)]
 rng_t = [1,1,1,1,2,2,2,3,3,4]
 targets_handler = {
@@ -62,6 +69,10 @@ while run:
                     # Update points and remove target from screen
                     hud.update_score(screen, target.points)
                     targets_on_screen.remove(target)
+
+                # Create new popup
+                popup = CHPopUp(ch, target)
+                popups.append(popup)
 
     # Filling the screen with up to 10 targets
     if len(targets_on_screen) < 2:
@@ -90,6 +101,10 @@ while run:
     # Check if any target time on screen is over
     for target in targets_on_screen:
         if target.time_over():
+            # Create new popup
+            popup = TPopUp(target)
+            popups.append(popup)
+            # Remove target
             targets_on_screen.remove(target)
 
     # Initiate screen
@@ -97,6 +112,12 @@ while run:
     # Show Hud
     if not hud_already_loaded:
         hud.draw(screen)
+
+    # Check and draw all popups
+    for popup in popups:
+        r = popup.draw(screen)
+        if not r:
+            popups.remove(popup)
 
     # Load crosshair and targets
     ss = pg.sprite.RenderPlain((*targets_on_screen, ch))
