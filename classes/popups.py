@@ -97,3 +97,31 @@ class CHPopUp(PopUp):
 
         # Make it a real PopUp now
         super().__init__((x,y), text)
+
+class TPopUp(PopUp):
+    """PopUp that shows when targets hide
+
+    Arguments:
+    target {Target} -- Target that will be hidden
+    """
+
+    def __init__(self, target:Target):
+        # Bank of texts
+        texts = [
+            'L!',
+            'oof!',
+            'loss',
+            'lost',
+            'loser',
+            'ow',
+            'ouch' 
+        ]
+        # Random text index
+        rng = randint(0, len(texts)-1)
+
+        # Position of the text based on the target
+        x = target.center[0]
+        y = target.center[1]
+
+        # Make it a real PopUp now
+        super().__init__((x,y), texts[rng])
