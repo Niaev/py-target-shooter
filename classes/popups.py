@@ -1,3 +1,6 @@
+# General imports
+from random import randint
+
 # PyGame imports
 import pygame as pg
 
