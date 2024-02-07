@@ -23,10 +23,11 @@ class PopUp():
     label {pg.Surface} -- Text surface
     """
 
-    def __init__(self, pos:tuple, text:str):
+    def __init__(self, pos:tuple, text:str, center:bool=0):
         # Base instance variables
         self.pos = pos
         self.text = text
+        self.center = center
 
         # Transparency
         self.alpha = 255
@@ -59,7 +60,10 @@ class PopUp():
         self.label.set_alpha(self.alpha)
 
         # Draw text again
-        label_pos = self.label.get_rect(x=x, y=y)
+        if self.center:
+            label_pos = self.label.get_rect(centerx=x, centery=y)
+        else:
+            label_pos = self.label.get_rect(x=x, y=y)
         screen.blit(self.label, label_pos)
 
         # Update position and alpha channel
@@ -127,5 +131,5 @@ class TPopUp(PopUp):
         x = target.center[0]
         y = target.center[1]
 
-        # Make it a real PopUp now
-        super().__init__((x,y), texts[rng])
+        # Make it a real PopUp now (with center on)
+        super().__init__((x,y), texts[rng], True)
