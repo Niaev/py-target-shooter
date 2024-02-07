@@ -1,6 +1,10 @@
 # PyGame imports
 import pygame as pg
 
+# Project imports
+from classes.crosshair import CrossHair
+from classes.targets import Target
+
 class PopUp():
     """Pop text up on screen and fade out quickly
 
@@ -61,3 +65,35 @@ class PopUp():
 
         # Say that the object was drawn
         return True
+
+class CHPopUp(PopUp):
+    """PopUp that shows with cross hair actions
+    
+    Arguments:
+    ch {CrossHair} -- User cursor crosshair
+    target {Target|None} -- Target that got shot or None when nothing 
+                            was shot
+    """
+
+    def __init__(self, ch:CrossHair, target:Target|None, max_width:int=600):
+        # Getting x position to be a little bit to the side of the 
+        # CrossHair
+        ch_x = ch.rect.x + ch.rect.size[0] * 1.75
+        # Determine which side it will be
+        if ch_x > max_width:
+            # Left if crosshair is near screen end
+            x = ch.rect.x - (ch.rect.size[0])
+        else:
+            # Right if crosshair is anywhere else
+            x = ch.rect.x + (ch.rect.size[0])
+        # Place somewhere (this works for the console font only)
+        y = ch.rect.y + 10
+
+        # Determine text to be displayed based on target
+        if target:
+            text = f'+{target.points}'
+        else:
+            text = 'miss!'
+
+        # Make it a real PopUp now
+        super().__init__((x,y), text)
