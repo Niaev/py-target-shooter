@@ -32,7 +32,7 @@ class PopUp():
         self.font = pg.font.Font('data/fonts/console/pixeldroidConsoleRegular.ttf', 32)
         self.label = self.font.render(self.text, True, (0,0,0))
 
-    def draw(self, screen:'pg.Surface'):
+    def draw(self, screen:'pg.Surface') -> bool:
         """Determine if the popup need to be drawn and handles alpha channel
         
         Arguments:
