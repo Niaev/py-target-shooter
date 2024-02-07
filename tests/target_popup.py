@@ -35,7 +35,7 @@ class PopUp():
     def __init__(self, pos:tuple, text:str):
         self.pos = pos
         self.text = text
-        self.alpha = 1.0
+        self.alpha = 255
 
         # Set font family and size
         self.font = pg.font.Font('data/fonts/console/pixeldroidConsoleRegular.ttf', 32)
@@ -49,11 +49,12 @@ class PopUp():
         y = self.pos[1] - 1
 
         self.label = self.font.render(self.text, True, (0,0,0))
+        self.label.set_alpha(self.alpha)
         label_pos = self.label.get_rect(x=x, y=y)
         screen.blit(self.label, label_pos)
 
         self.pos = (x,y)
-        self.alpha -= 0.05
+        self.alpha -= 17
 
         return True
     
@@ -62,12 +63,10 @@ class TPopUp(PopUp):
         texts = [
             'L!',
             'oof!',
-            'gg',
             'loss',
             'lost',
             'loser',
             'ow',
-            'wow',
             'ouch' 
         ]
         rng = randint(0, len(texts)-1)
