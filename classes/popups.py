@@ -76,6 +76,7 @@ class CHPopUp(PopUp):
     ch {CrossHair} -- User cursor crosshair
     target {Target|None} -- Target that got shot or None when nothing 
                             was shot
+    max_width {int} -- x screen limit (default 600)
     """
 
     def __init__(self, ch:CrossHair, target:Target|None, max_width:int=600):
