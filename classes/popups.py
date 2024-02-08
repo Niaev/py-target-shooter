@@ -68,7 +68,7 @@ class PopUp():
 
         # Update position and alpha channel
         self.pos = (x,y)
-        self.alpha -= 17
+        self.alpha -= 8
 
         # Say that the object was drawn
         return True
