@@ -24,6 +24,7 @@ pg.init()
 size = width, height = 600, 600
 screen = pg.display.set_mode(size)
 pg.display.set_caption('Target Shooter: The Game')
+pg.display.set_icon(pg.image.load('data/imgs/icon.png'))
 clock = pg.time.Clock()
 run = True
 
