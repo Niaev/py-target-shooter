@@ -65,3 +65,29 @@ class CrossHair(GroupedDrawings):
             return target_hit
         else:
             return None
+        
+    def move(self, movement:str, speed:int=3):
+        """Static movement based on given direction
+        
+        This method is used only on splashscreen animation. Could be 
+        useful for other stuff.
+
+        Arguments:
+        movement {str} -- Direction/Type of movement
+        speed {int} -- Movement increaser (default 3).
+        """
+
+        pos = self.rect.topleft
+
+        if movement == 'l':
+            newpos = (pos[0]-speed, pos[1])
+        elif movement == 'r':
+            newpos = (pos[0]+speed, pos[1])
+        elif movement == 'tr':
+            newpos = (pos[0]+speed, pos[1]-speed)
+        elif movement == 'dr':
+            newpos = (pos[0]+speed, pos[1]+speed)
+        elif movement == 'dl':
+            newpos = (pos[0]-speed, pos[1]+speed)
+
+        self.rect.topleft = newpos
