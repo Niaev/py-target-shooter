@@ -17,7 +17,7 @@ clock = pg.time.Clock()
 run = True
 
 class Button(GroupedDrawings):
-    def __init__(self, center:tuple, size:tuple):
+    def __init__(self, center:tuple, size:tuple, mode:str='normal'):
         self.x, self.y = center
         self.width, self.height = size
 
@@ -26,60 +26,13 @@ class Button(GroupedDrawings):
 
         self.offset_x = self.width / 2
         self.offset_y = self.height / 2
-        
-        """self.background = Drawing(
-            size, 
-            (self.x-self.offset_x, self.y-self.offset_y), 
-            color='grey'
-        )
 
-        self.bd_top = Drawing(
-            (self.width, 6), 
-            (self.x-self.offset_x, self.y-self.offset_y-6),
-            color='black'
-        )
-
-        self.bd_right = Drawing(
-            (6, self.height), 
-            (self.x+self.offset_x, self.y-self.offset_y),
-            color='black'
-        )
-
-        self.bd_bottom = Drawing(
-            (self.width, 6), 
-            (self.x-self.offset_x, self.y+self.offset_y),
-            color='black'
-        )
-
-        self.bd_left = Drawing(
-            (6, self.height), 
-            (self.x-self.offset_x-6, self.y-self.offset_y),
-            color='black'
-        )
-
-        self.sprites = [
-            self.background,
-            self.bd_top,
-            self.bd_right,
-            self.bd_bottom,
-            self.bd_left
-        ]
-        super().__init__(self.sprites)
-
-        self.text = self.font.render('Ok', True, (0,0,0))
-    
-        text_pos = self.text.get_rect(x=self.width/2-11, y=self.height/2-17)
-        self.image.blit(self.text, text_pos)"""
-
-        self.draw(init=True)
-
-    def draw(self, mode:str='normal', init=False):
         if mode == 'normal':
             border_text_color = 'black' # #000000
             bg_color = 'grey' # #bebebe
         elif mode == 'hover':
-            border_text_color = '#111111'
-            bg_color = '#bbbbbb'
+            border_text_color = 'black' #'#444444'
+            bg_color = '#999999'
 
         self.background = Drawing(
             (self.width, self.height), 
@@ -118,27 +71,16 @@ class Button(GroupedDrawings):
             self.bd_bottom,
             self.bd_left
         ]
-        if init:
-            super().__init__(self.sprites)
 
-            self.text = self.font.render('Ok', True, (0,0,0))
+        super().__init__(self.sprites)
+
+        self.text = self.font.render('Ok', True, border_text_color)
+    
+        text_pos = self.text.get_rect(x=self.width/2-11, y=self.height/2-17)
+        self.image.blit(self.text, text_pos)
+
+        self.mode = mode
         
-            text_pos = self.text.get_rect(x=self.width/2-11, y=self.height/2-17)
-            self.image.blit(self.text, text_pos)
-        else:
-            for sprite in self.sprites:
-                self.image.blit(
-                    sprite.image,
-                    sprite.rect.topleft
-                )
-
-    def update(self):
-        if self.rect.collidepoint(pg.mouse.get_pos()):
-            print('Test')
-            self.draw(mode='hover')
-        else:
-            self.draw()
-
 # Set system cursor as transparent
 pg.mouse.set_cursor(
     (8,8),
@@ -154,6 +96,11 @@ btn = Button(
 )
 ch = CrossHair((0,0))
 
+btns = {
+    'Ok': btn
+}
+l_maker = lambda d: [d[k] for k in d]
+
 while run:
     for event in pg.event.get():
         if event.type == pg.QUIT:
@@ -161,10 +108,24 @@ while run:
     
     screen.fill('grey')
 
-    spr_tup = (btn, ch)
+    for k in btns:
+        b = btns[k]
+        if b.rect.collidepoint(pg.mouse.get_pos()) and b.mode == 'normal':
+            btns[k] = Button(
+                (width/2, height/2),
+                (100, 50),
+                mode='hover',
+            )
+        elif not b.rect.collidepoint(pg.mouse.get_pos()) and b.mode == 'hover':
+            btns[k] = Button(
+                (width/2, height/2),
+                (100, 50),
+            )
+
+    l_btns = l_maker(btns)
+    spr_tup = (*l_btns, ch)
     sprites = pg.sprite.RenderPlain(spr_tup)
     ch.update()
-    btn.update()
     sprites.draw(screen)
 
     pg.display.flip()
