@@ -156,5 +156,5 @@ class Logo(GroupedDrawings):
     def move(self, pos:tuple):
         self.rect.topleft = pos
 
-    def center(self, size:tuple):
-        self.rect.center = (size[0]/2, size[1]/2)
+    def center(self, pos:tuple):
+        self.rect.center = (pos[0], pos[1])
