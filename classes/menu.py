@@ -3,6 +3,7 @@ import pygame as pg
 
 # Project imports
 from classes.base_drawings import GroupedDrawings, Drawing
+from classes.logo import Logo
 
 class Button(GroupedDrawings):
     def __init__(self, label:str, center:tuple, size:tuple, mode:str='normal'):
@@ -101,3 +102,67 @@ class Menu(GroupedDrawings):
     @staticmethod
     def button_list_maker(buttons):
         return [buttons[k] for k in buttons]
+    
+class MainMenu(Menu):
+    def __init__(self, size:tuple):
+        self.logo = Logo()
+        self.logo.center((size[0]/2, 125))
+
+        self.start = Button(
+            'start',
+            (size[0]/2, size[1]/2),
+            (200, 50)
+        )
+
+        self.options = Button(
+            'options',
+            (size[0]/2, size[1]/2 + 80),
+            (200, 50)
+        )
+
+        self.credits = Button(
+            'credits',
+            (size[0]/2, size[1]/2 + 160),
+            (200, 50)
+        )
+
+        self.buttons = {
+            'start': self.start,
+            'options': self.options,
+            'credits': self.credits
+        }
+
+        self.btn_functions = {
+            'start': self.start_click,
+            'options': self.options_click,
+            'credits': self.credits_click
+        }
+
+        sprites = [
+            self.logo,
+            self.start,
+            self.options,
+            self.credits
+        ]
+        super().__init__(self.buttons, sprites)
+
+    def click_buttons(self):
+        for event in pg.event.get():
+            if event.type == pg.MOUSEBUTTONDOWN:
+                mouse_presses = pg.mouse.get_pressed()
+                if mouse_presses[0]:
+                    for k in self.buttons:
+                        button = self.buttons[k]
+                        collide = button.rect.collidepoint(pg.mouse.get_pos())
+                        if collide:
+                            click_function = self.btn_functions[k]
+                            click_function()
+
+    def start_click(self):
+        print('start')
+
+    def options_click(self):
+        print('options')
+
+    def credits_click(self):
+        print('credits')
