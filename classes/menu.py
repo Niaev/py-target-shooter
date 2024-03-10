@@ -97,3 +97,7 @@ class Menu(GroupedDrawings):
                     (button.width, button.height),
                     mode='normal'
                 )
+    
+    @staticmethod
+    def button_list_maker(buttons):
+        return [buttons[k] for k in buttons]
