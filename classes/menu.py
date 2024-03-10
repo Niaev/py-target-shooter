@@ -4,7 +4,6 @@ import pygame as pg
 # Project imports
 from classes.base_drawings import GroupedDrawings, Drawing
 
-
 class Button(GroupedDrawings):
     def __init__(self, label:str, center:tuple, size:tuple, mode:str='normal'):
         self.label = label
@@ -71,3 +70,30 @@ class Button(GroupedDrawings):
         self.image.blit(self.text, text_pos)
 
         self.mode = mode
+
+class Menu(GroupedDrawings):
+    def __init__(self, buttons:dict, sprites:list):
+        self.buttons = buttons
+        self.sprites = sprites
+
+        super().__init__(self.sprites)
+
+    def hover_buttons(self):
+        for k in self.buttons:
+            button = self.buttons[k]
+            hover = button.rect.collidepoint(pg.mouse.get_pos())
+
+            if hover and button.mode == 'normal':
+                self.buttons[k] = Button(
+                    button.label,
+                    (button.x, button.y),
+                    (button.width, button.height),
+                    mode='hover'
+                )
+            if not hover and button.mode == 'hover':
+                self.buttons[k] = Button(
+                    button.label,
+                    (button.x, button.y),
+                    (button.width, button.height),
+                    mode='normal'
+                )
