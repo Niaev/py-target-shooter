@@ -98,6 +98,8 @@ class Menu(GroupedDrawings):
                     (button.width, button.height),
                     mode='normal'
                 )
+
+        self.sprites = Menu.button_list_maker(self.buttons)
     
     @staticmethod
     def button_list_maker(buttons):
@@ -166,3 +168,9 @@ class MainMenu(Menu):
 
     def credits_click(self):
         print('credits')
+
+    def update(self):
+        self.hover_buttons()
+        self.click_buttons()
+        self.sprites.append(self.logo)
+        super().__init__(self.buttons, self.sprites)
