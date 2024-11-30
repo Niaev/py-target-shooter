@@ -22,7 +22,7 @@ Free-to-play; indie-made; no ads; no microtransactions; open-source and moddable
 
 ### Player Experience and Game POV
 
-The player is the shooter, represented by a cursor driven corss hair, against a concrete-grey wall that targets may appear and disappear. The more targets he shoots, more points he gets.
+The player is the shooter, represented by a cursor driven cross hair, against a concrete-grey wall that targets may appear and disappear. The more targets he shoots, more points he gets.
 
 ### Visual and Audio Style
 
@@ -34,7 +34,7 @@ There is no world or fiction. Just targets to shoot.
 
 ### Monetization
 
-The game is free-to-play, with no microtransactions or ads. So no monetization method.
+The game is free-to-play, with no microtransactions or ads. Will be available as "name your price" at Itch.io, giving players the option to pay for it as much as they want.
 
 ### Platform, Technology, and Scope
 
@@ -44,7 +44,7 @@ PC only; 2D; PyGame only with no image files; One dev team; A couple months to c
 
 ### Core Loops
 
-The game loop updated every state of every object inside the game, be it the player's crosshair, targets, point counter, misses counter and timer. The change of state can be change of scale, color, content, position, opacity and if it is even on the screen or not.
+The game loop updates every state of every object inside the game, be it the player's crosshair, targets, point counter, misses counter and timer. The change of state can be change of scale, color, content, position, opacity and if it is even on the screen or not.
 
 The game loop is engaging since it has a local leaderbords to compare player's past tries, a timer and misses limits to motivate the player to improve under pressure, achievements and secrets willing to be found.
 
@@ -54,8 +54,8 @@ Player starts at the menu screen, being able to choose to play or other in-game 
 
 ### Game Systems
 
-I don't know what it is.
+No game systems at all. Only system present is generating random targets on the screen at random positions, tracking achievements through gameplay and tracking the cursor and user input to interact with targets.
 
 ### Interactivity
 
-I don't know about that also.
+Player interaction is completely limited to shooting targets, shooting nothing and interacting with menus.
